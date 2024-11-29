@@ -1,0 +1,53 @@
+package com.api.api.Services;
+
+import com.api.api.Entities.Photo;
+import com.mongodb.client.gridfs.GridFSBucket;
+import com.mongodb.client.gridfs.GridFSDownloadStream;
+import com.mongodb.client.gridfs.model.GridFSFile;
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import java.util.ArrayList;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+@Service
+public class PhotoService {
+
+    @Autowired
+    private GridFSBucket gridFSBucket;
+
+    public String uploadPhoto(MultipartFile file) throws IOException {
+        ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
+        return fileId.toString();
+    }
+
+    public byte[] getPhoto(String id) throws IOException {
+        GridFSFile gridFSFile = gridFSBucket.find(new org.bson.Document("_id", new ObjectId(id))).first();
+        if (gridFSFile == null) {
+            throw new IllegalArgumentException("Photo not found");
+        }
+
+        GridFSDownloadStream downloadStream = gridFSBucket.openDownloadStream(new ObjectId(id));
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = downloadStream.read(buffer)) != -1) {
+            outputStream.write(buffer, 0, bytesRead);
+        }
+        downloadStream.close();
+        return outputStream.toByteArray();
+    }
+
+    public void deletePhoto(String id) {
+        gridFSBucket.delete(new ObjectId(id));
+    }
+
+    public List<String> getAllPhotos() {
+        List<String> photoIds = new ArrayList<>();
+        gridFSBucket.find().forEach(gridFSFile -> photoIds.add(gridFSFile.getObjectId().toString()));
+        return photoIds;
+    }
+}

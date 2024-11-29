@@ -31,7 +31,7 @@ public class UserService {
         // Yeni kullanıcı oluştur ve kaydet
         User newUser = new User();
         newUser.setUsername(username);
-        newUser.setPassword(password); // Şifre düz metin olarak kaydediliyor (Tavsiye edilmez)
+        newUser.setPassword(password); // Şifre düz metin olarak kaydediliyor
         return userRepo.save(newUser);
     }
 
