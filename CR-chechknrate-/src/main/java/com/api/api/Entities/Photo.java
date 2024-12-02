@@ -15,5 +15,5 @@ public class Photo {
     private String name; // Fotoğraf adı
     private String type; // Fotoğraf türü (ör. image/jpeg)
     private byte[] data; // Fotoğrafın binary verisi
-
+    private String userId;
 }
