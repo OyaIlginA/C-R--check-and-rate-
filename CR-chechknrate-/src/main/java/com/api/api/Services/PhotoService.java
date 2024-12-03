@@ -25,7 +25,7 @@ public class PhotoService {
         this.photoRepo = photoRepo;
     }
     public List<Photo> getUserPhotos(String userId) {
-        List<Photo> user = photoRepo.findByUserId(userId);
+        List<Photo> user = photoRepo.findByUser(userId);
         return user;
     }
 

@@ -29,7 +29,7 @@ public class PhotoController {
     }
 
 
-    @GetMapping("/user/{userid}")
+    @GetMapping("/{userid}")
     public ResponseEntity<List<Photo>> getUserPhotos(@PathVariable String userid) {
         return ResponseEntity.ok(photoService.getUserPhotos(userid));
     }
