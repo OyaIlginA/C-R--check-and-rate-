@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class UserService {
@@ -32,6 +33,9 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password); // Şifre düz metin olarak kaydediliyor
+        Random random = new Random();
+        long randomNumber = 100000000000L + (long)(random.nextDouble() * 900000000000L);
+        newUser.setApikey(String.valueOf(randomNumber));
         return userRepo.save(newUser);
     }
 
