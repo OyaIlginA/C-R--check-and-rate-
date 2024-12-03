@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface PhotoRepo extends MongoRepository<Photo, String> {
 
-  List<Photo> findByUser(String userId);
+  List<Photo> findByUserId(String userId);
 
 }
