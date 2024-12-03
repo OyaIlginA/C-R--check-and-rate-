@@ -7,7 +7,7 @@ import com.api.api.Entities.User;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
     private UserService userService;
 
