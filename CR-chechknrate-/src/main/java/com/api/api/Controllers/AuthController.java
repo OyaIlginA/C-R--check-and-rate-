@@ -27,7 +27,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginRequest loginRequest) {
         User user=userService.loginUser(loginRequest.getUsername(), loginRequest.getPassword());
-        return ResponseEntity.ok("Login successful, API Key: " + user.getApikey());
+        return ResponseEntity.ok("Login successful, API Key: " + user.getApikey() + "User ID: " + user.getId());
     }
     @Autowired
     private UserRepo userRepo;

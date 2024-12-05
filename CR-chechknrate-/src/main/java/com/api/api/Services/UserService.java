@@ -5,6 +5,7 @@ import com.api.api.Repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -36,8 +37,24 @@ public class UserService {
         Random random = new Random();
         long randomNumber = 100000000000L + (long)(random.nextDouble() * 900000000000L);
         newUser.setApikey(String.valueOf(randomNumber));
+        //newUser.setPhotos(new ArrayList<>());
+       //yeni array list oluşturup ona bu atamayı yapmak lazımm
         return userRepo.save(newUser);
     }
+
+  /*  public User addPhotoToUser(String username, String photoId) {
+        System.out.println("7");
+
+        Optional<User> existingUser = userRepo.findByUsername(username);
+        if (existingUser.isPresent()) {
+            User user = existingUser.get();
+            user.getPhotos().add(photoId);
+            System.out.println("8");
+            return userRepo.save(user); // Kullanıcıyı güncelle
+        } else {
+            throw new IllegalArgumentException("User not found!");
+        }
+    }*/
 
     // Giriş yap
     public User loginUser(String username, String password) {

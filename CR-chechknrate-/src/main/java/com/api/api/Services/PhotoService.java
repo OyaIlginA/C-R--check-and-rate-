@@ -1,7 +1,9 @@
 package com.api.api.Services;
 
 import com.api.api.Entities.Photo;
+import com.api.api.Entities.User;
 import com.api.api.Repos.PhotoRepo;
+import com.api.api.Repos.UserRepo;
 import com.mongodb.client.gridfs.GridFSBucket;
 import com.mongodb.client.gridfs.GridFSDownloadStream;
 import com.mongodb.client.gridfs.model.GridFSFile;
@@ -20,6 +22,12 @@ public class PhotoService {
     @Autowired
     private GridFSBucket gridFSBucket;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private UserRepo userRepo;
+
     private final PhotoRepo photoRepo;
     public PhotoService(PhotoRepo photoRepo) {
         this.photoRepo = photoRepo;
@@ -29,8 +37,12 @@ public class PhotoService {
         return user;
     }
 
-    public String uploadPhoto(MultipartFile file) throws IOException {
+    public String uploadPhoto(MultipartFile file, String username) throws IOException {
         ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
+
+        // Fotoğrafı kullanıcıya ekle
+       // String photoId = fileId.toString();
+        //userService.addPhotoToUser(username, photoId);
         return fileId.toString();
     }
 
