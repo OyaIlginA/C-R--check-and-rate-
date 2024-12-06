@@ -1,6 +1,7 @@
 package com.api.api.Services;
 
 import com.api.api.Entities.Photo;
+import com.api.api.Entities.Rating;
 import com.api.api.Entities.User;
 import com.api.api.Repos.PhotoRepo;
 import com.api.api.Repos.UserRepo;
@@ -37,14 +38,14 @@ public class PhotoService {
         return user;
     }
 
-    public String uploadPhoto(MultipartFile file, String username) throws IOException {
-        ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
-
-        // Fotoğrafı kullanıcıya ekle
-       // String photoId = fileId.toString();
-        //userService.addPhotoToUser(username, photoId);
-        return fileId.toString();
-    }
+    //public String uploadPhoto(MultipartFile file, String username) throws IOException {
+    //    ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
+    //
+    //    // Fotoğrafı kullanıcıya ekle
+    //   // String photoId = fileId.toString();
+    //    //userService.addPhotoToUser(username, photoId);
+    //    return fileId.toString();
+    //}
 
     public byte[] getPhoto(String id) throws IOException {
         GridFSFile gridFSFile = gridFSBucket.find(new org.bson.Document("_id", new ObjectId(id))).first();
@@ -74,4 +75,66 @@ public class PhotoService {
     }
 
 
+    //rating işlemleri ------------------------------------------------------------------------------------------------
+
+    public void ratePhoto(String photoId, String userId, int score) {
+        Photo photo = photoRepo.findById(photoId)
+                .orElseThrow(() -> new IllegalArgumentException("Photo not found"));
+
+        if (photo.getRatings().stream().anyMatch(r -> r.getUserId().equals(userId))) {
+            throw new IllegalArgumentException("User has already rated this photo");
+        }
+
+        // Yeni bir puan ekle
+        Rating newRating = new Rating();
+        newRating.setUserId(userId);
+        newRating.setScore(score);
+
+        photo.getRatings().add(newRating);
+        photo.setAverageScore(photo.calculateAverageScore());
+        photoRepo.save(photo);
+
+        // Kullanıcıyı güncelle
+        User owner = userRepo.findById(photo.getOwner().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Owner not found"));
+
+        // Null kontrolü yapın (önlem amaçlı)
+        if (owner.getPhotos() == null) {
+            owner.setPhotos(new ArrayList<>());
+        }
+
+        userRepo.save(owner);
+    }
+
+    public String uploadPhoto(MultipartFile file, String ownerId) throws IOException {
+        // Kullanıcıyı kontrol et
+        User owner = userRepo.findById(ownerId)
+                .orElseThrow(() -> new IllegalArgumentException("Owner not found"));
+
+        // Fotoğrafı GridFS'e yükle
+        ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
+
+        // Metadata oluştur ve kaydet
+        Photo photo = new Photo();
+        photo.setId(fileId.toString());
+        photo.setName(file.getOriginalFilename());
+        photo.setOwner(owner);
+        photo.setRatings(new ArrayList<>());
+        photo.setAverageScore(0.0);
+
+        photoRepo.save(photo);
+
+        // Kullanıcının `photos` listesine yeni fotoğrafı ekle
+        owner.getPhotos().add(photo);
+        userRepo.save(owner); // Kullanıcıyı güncelle
+
+        return fileId.toString();
+    }
+
+    public Double getPhotoAverageScore(String photoId) {
+        Photo photo = photoRepo.findById(photoId)
+                .orElseThrow(() -> new IllegalArgumentException("Photo not found"));
+
+        return photo.getAverageScore();
+    }
 }
