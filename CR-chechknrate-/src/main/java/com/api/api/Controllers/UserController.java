@@ -10,6 +10,7 @@ import com.api.api.Services.UserService;
 import com.api.api.Entities.User;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -152,6 +153,43 @@ public class UserController {
             }
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        }
+    }
+
+    @GetMapping("/{userId}/averageScore")
+    public ResponseEntity<Object> getPhotoAverageScore(@PathVariable String userId,
+                                                       @RequestParam("api") String apikey,
+                                                       @RequestParam("uname") String uname) {
+        // Kullanıcı adı ve API key doğrulaması
+        Optional<User> existingUser = userRepo.findByUsername(uname);
+        if (existingUser.isPresent()) {
+            User dbUser = existingUser.get();
+            if (apikey.equals(dbUser.getApikey())) {
+                // API key doğrulaması başarılı
+                try {
+                    // Service üzerinden kullanıcı puanını al
+                    double averageScore = userService.calculateUserAverageScore(userId);
+
+                    // Yanıtı döndür
+                    return ResponseEntity.ok(Map.of(
+                            "userId", userId,
+                            "averageScore", averageScore
+                    ));
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Invalid userId: " + userId);
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+                } catch (Exception e) {
+                    System.err.println("Error while calculating average score: " + e.getMessage());
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Internal server error"));
+                }
+            } else {
+                // API key hatalı
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "Invalid API key"));
+            }
+        } else {
+            // Kullanıcı bulunamadı
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
         }
     }
 }

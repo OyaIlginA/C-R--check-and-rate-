@@ -104,5 +104,11 @@ public class UserService {
         userRepo.deleteById(userId);
     }
 
+    public Double calculateUserAverageScore(String userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        return user.calculateUserAverageScore();
+    }
 
 }
