@@ -205,20 +205,25 @@ public class PhotoController {
 
     @GetMapping("/{photoId}/rate")
     public ResponseEntity<List<String>> ratePhoto(@PathVariable String photoId,
-                                                  @RequestParam String userId,
+                                                  @RequestParam("uid") String userId,
                                                   @RequestParam int score,
                                                   @RequestParam("api") String apikey,
                                                   @RequestParam("uname") String uname) {
         // Kullanıcı adı ve API key doğrulaması
         Optional<User> existingUser = userRepo.findByUsername(uname);
+        System.out.println("1");
         if (existingUser.isPresent()) {
+            System.out.println("2");
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
                 // API key doğrulaması başarılı
                 try {
+                    System.out.println("3");
                     photoService.ratePhoto(photoId, userId, score);
+                    System.out.println("4");
                     return ResponseEntity.ok(Collections.singletonList("Photo rated successfully"));
                 } catch (Exception e) {
+                    System.out.println("5");
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
                 }
             } else {
@@ -232,9 +237,9 @@ public class PhotoController {
     }
 
     @GetMapping("/{photoId}/averageScore")
-    public ResponseEntity<List<String>> getPhotoAverageScore(@PathVariable String photoId,
-                                                            @RequestParam("api") String apikey,
-                                                            @RequestParam("uname") String uname) {
+    public ResponseEntity<Object> getPhotoAverageScore(@PathVariable String photoId,
+                                                       @RequestParam("api") String apikey,
+                                                       @RequestParam("uname") String uname) {
         // Kullanıcı adı ve API key doğrulaması
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
@@ -243,17 +248,24 @@ public class PhotoController {
                 // API key doğrulaması başarılı
                 try {
                     Double averageScore = photoService.getPhotoAverageScore(photoId);
-                    return ResponseEntity.ok((List<String>) Map.of("photoId", photoId, "averageScore", averageScore));
+                    Map<String, Object> response = Map.of("photoId", photoId, "averageScore", averageScore);
+                    return ResponseEntity.ok(response);
+                } catch (IllegalArgumentException e) {
+                    System.err.println("Invalid photoId: " + photoId);
+                    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
                 } catch (Exception e) {
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+                    System.err.println("Error while calculating average score: " + e.getMessage());
+                    e.printStackTrace();
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Internal server error"));
                 }
             } else {
                 // API key hatalı
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "Invalid API key"));
             }
         } else {
             // Kullanıcı bulunamadı
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
         }
     }
+
 }

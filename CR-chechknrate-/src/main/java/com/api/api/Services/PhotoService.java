@@ -132,9 +132,12 @@ public class PhotoService {
     }
 
     public Double getPhotoAverageScore(String photoId) {
+        System.out.println("*");
         Photo photo = photoRepo.findById(photoId)
                 .orElseThrow(() -> new IllegalArgumentException("Photo not found"));
+        System.out.println("8");
 
         return photo.getAverageScore();
+
     }
 }
