@@ -1,0 +1,14 @@
+# Node.js bağımlılıkları
+/node_modules
+**/node_modules
+
+# Derlenmiş dosyalar
+/build
+**/build
+
+# Ortam değişkeni dosyaları
+.env
+
+# IDE ve işletim sistemi dosyaları
+.DS_Store
+.idea
