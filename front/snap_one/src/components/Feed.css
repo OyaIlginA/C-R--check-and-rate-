@@ -1,0 +1,22 @@
+.pinterest-feed {
+    column-count: 5; /* Number of columns */
+    column-gap: 16px;
+    padding: 16px;
+   /* max-width: 1200px;*/
+    margin: 0 auto;
+  }
+  
+  .pinterest-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .pinterest-item img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+  }
+  
