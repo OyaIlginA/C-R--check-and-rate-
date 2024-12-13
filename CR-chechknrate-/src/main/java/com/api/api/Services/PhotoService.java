@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PhotoService {
@@ -34,9 +35,27 @@ public class PhotoService {
         this.photoRepo = photoRepo;
     }
     public List<Photo> getUserPhotos(String userId) {
-        List<Photo> user = photoRepo.findByUserId(userId);
-        return user;
+// Kullanıcıyı bul
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Kullanıcının fotoğraf listesini döndür
+        List<Photo> photos = user.getPhotos();
+        return photos != null ? photos : new ArrayList<>(); // Null güvenliği
     }
+
+
+
+    public List<String> getPhotosByUser(String userId) {
+        User user = userRepo.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        // Fotoğraf ID'lerini döndür
+        return user.getPhotos().stream()
+                .map(Photo::getId) // Fotoğraf ID'lerini al
+                .collect(Collectors.toList());
+    }
+
 
     //public String uploadPhoto(MultipartFile file, String username) throws IOException {
     //    ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
@@ -71,9 +90,20 @@ public class PhotoService {
     public List<String> getAllPhotos() {
         List<String> photoIds = new ArrayList<>();
         gridFSBucket.find().forEach(gridFSFile -> photoIds.add(gridFSFile.getObjectId().toString()));
+
         return photoIds;
     }
-
+/*
+    public List<String> getAllPhotos() {
+        List<String> photoUrls = new ArrayList<>();
+        gridFSBucket.find().forEach(gridFSFile -> {
+            String photoId = gridFSFile.getObjectId().toString();
+            String photoUrl = "/api/photo/" + photoId;  // Fotoğraf URL'sini oluşturuyoruz
+            photoUrls.add(photoUrl);
+        });
+        return photoUrls;
+    }
+*/
 
     //rating işlemleri ------------------------------------------------------------------------------------------------
 
@@ -110,23 +140,29 @@ public class PhotoService {
         // Kullanıcıyı kontrol et
         User owner = userRepo.findById(ownerId)
                 .orElseThrow(() -> new IllegalArgumentException("Owner not found"));
-
+        System.out.println("11");
         // Fotoğrafı GridFS'e yükle
         ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
-
+        System.out.println("12");
         // Metadata oluştur ve kaydet
         Photo photo = new Photo();
         photo.setId(fileId.toString());
+        System.out.println("13");
         photo.setName(file.getOriginalFilename());
+        System.out.println("14");
         photo.setOwner(owner);
+        System.out.println("15");
         photo.setRatings(new ArrayList<>());
         photo.setAverageScore(0.0);
 
         photoRepo.save(photo);
+        System.out.println("16");
 
         // Kullanıcının `photos` listesine yeni fotoğrafı ekle
         owner.getPhotos().add(photo);
+        System.out.println("17");
         userRepo.save(owner); // Kullanıcıyı güncelle
+        System.out.println("18");
 
         return fileId.toString();
     }

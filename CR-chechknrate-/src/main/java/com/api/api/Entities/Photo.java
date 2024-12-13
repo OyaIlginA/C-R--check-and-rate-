@@ -1,5 +1,6 @@
 package com.api.api.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -22,6 +23,7 @@ public class Photo {
     private String userId;
 
     @DBRef
+    @JsonIgnore
     private User owner;
 
 
