@@ -102,6 +102,20 @@ function Profile() {
       console.error("Error uploading photo:", error);
       setUploadMessage("Error occurred while uploading photo.");
     }
+
+    try {
+      const response = await fetch("/api/photos/${photoId}", {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setUploadMessage("Photo deleted successfully!");
+        setFile(null);
+      }
+    } catch (error) {
+      console.error("Error deleting photo:", error);
+      setUploadMessage("Error occurred while deleting photo.");
+    }
   };
 
   return (

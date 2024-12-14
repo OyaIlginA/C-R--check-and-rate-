@@ -135,7 +135,6 @@ public class PhotoService {
 
         userRepo.save(owner);
     }
-
     public String uploadPhoto(MultipartFile file, String ownerId) throws IOException {
         // Kullanıcıyı kontrol et
         User owner = userRepo.findById(ownerId)

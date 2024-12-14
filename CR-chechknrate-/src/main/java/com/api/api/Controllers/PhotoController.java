@@ -225,7 +225,7 @@ public class PhotoController {
         }
     }
 
-    @GetMapping("/{photoId}/rate")
+    @PostMapping("/{photoId}/rate")
     public ResponseEntity<List<String>> ratePhoto(@PathVariable String photoId,
                                                   @RequestParam("uid") String userId,
                                                   @RequestParam int score,
