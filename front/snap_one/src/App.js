@@ -21,7 +21,6 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/list" element={<TopPhotos />} />
-          
         </Routes>
       </div>
     </Router>

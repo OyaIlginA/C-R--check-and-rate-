@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import star_photo from "./images/star.jpg";
+import "./Profile.css";
 
 function Profile() {
   const [userInfo, setUserInfo] = useState(null);
@@ -10,6 +11,28 @@ function Profile() {
   const [uploadMessage, setUploadMessage] = useState(""); // Yükleme durumu mesajı
   const navigate = useNavigate();
 
+  // Fotoğrafları almak için fonksiyon
+  const fetchPhotos = async () => {
+    const apiKey = sessionStorage.getItem("apiKey");
+    const username = sessionStorage.getItem("username");
+    const userId = sessionStorage.getItem("userId");
+
+    try {
+      const response = await fetch(
+        `/api/photos/user/${userId}?api=${apiKey}&uname=${username}`
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setPhotos(data); // Fotoğraf ID'lerini kaydet
+      } else {
+        console.error("Error fetching photos:", data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  // Kullanıcı bilgilerini ve fotoğrafları almak için useEffect
   useEffect(() => {
     const apiKey = sessionStorage.getItem("apiKey");
     const username = sessionStorage.getItem("username");
@@ -26,23 +49,6 @@ function Profile() {
       userId,
       username,
     });
-
-    // Kullanıcıya ait fotoğrafları çek
-    const fetchPhotos = async () => {
-      try {
-        const response = await fetch(
-          `/api/photos/user/${userId}?api=${apiKey}&uname=${username}`
-        );
-        const data = await response.json();
-        if (response.ok) {
-          setPhotos(data); // Fotoğraf ID'lerini kaydet
-        } else {
-          console.error("Error fetching photos:", data.error);
-        }
-      } catch (error) {
-        console.error("Error:", error);
-      }
-    };
 
     // Ortalama puanı almak için API isteği
     const fetchAverageScore = async () => {
@@ -61,11 +67,12 @@ function Profile() {
       }
     };
 
-    // API'leri çağır
+    // Fotoğrafları ve puanları almak için çağır
     fetchPhotos();
     fetchAverageScore();
   }, [navigate]);
 
+  // Fotoğraf yükleme işlemi
   // Fotoğraf yükleme işlemi
   const handlePhotoUpload = async (e) => {
     e.preventDefault();
@@ -95,6 +102,8 @@ function Profile() {
         const data = await response.json();
         setUploadMessage("Photo uploaded successfully!");
         setFile(null);
+        // Fotoğraf yüklendikten sonra listeyi güncelle
+        fetchPhotos(); // Re-fetch photos after uploading
       } else {
         setUploadMessage("Failed to upload photo.");
       }
@@ -102,15 +111,30 @@ function Profile() {
       console.error("Error uploading photo:", error);
       setUploadMessage("Error occurred while uploading photo.");
     }
+  };
+
+  // Fotoğraf silme işlemi
+  // Fotoğraf silme işlemi
+  const handlePhotoDelete = async (photoId) => {
+    const apiKey = sessionStorage.getItem("apiKey");
+    const username = sessionStorage.getItem("username");
 
     try {
-      const response = await fetch("/api/photos/${photoId}", {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `/api/photos/${photoId}?api=${apiKey}&uname=${username}`,
+        {
+          method: "DELETE",
+        }
+      );
+
       if (response.ok) {
-        const data = await response.json();
+        // Fotoğraf silindikten sonra listeyi tekrar güncelle
+        setPhotos(photos.filter((photo) => photo !== photoId)); // Re-fetch photos after deletion to ensure it's up to date
         setUploadMessage("Photo deleted successfully!");
-        setFile(null);
+      } else {
+        // Eğer backend'den bir hata dönerse
+        const data = await response.json();
+        setUploadMessage(`Failed to delete photo: ${data.error}`);
       }
     } catch (error) {
       console.error("Error deleting photo:", error);
@@ -146,14 +170,35 @@ function Profile() {
           <h3>Your Photos</h3>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
             {photos.map((photoId) => (
-              <img
-                key={photoId}
-                src={`/api/photos/${photoId}?api=${sessionStorage.getItem(
-                  "apiKey"
-                )}&uname=${sessionStorage.getItem("username")}`}
-                alt={`Photo ${photoId}`}
-                style={{ width: "150px", height: "150px", objectFit: "cover" }}
-              />
+              <div key={photoId} style={{ position: "relative" }}>
+                <img
+                  src={`/api/photos/${photoId}?api=${sessionStorage.getItem(
+                    "apiKey"
+                  )}&uname=${sessionStorage.getItem(
+                    "username"
+                  )}&timestamp=${new Date().getTime()}`}
+                  style={{
+                    width: "150px",
+                    height: "150px",
+                    objectFit: "cover",
+                  }}
+                />
+                <button
+                  onClick={() => handlePhotoDelete(photoId)}
+                  style={{
+                    position: "absolute",
+                    top: "5px",
+                    right: "5px",
+                    background: "red",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "50%",
+                    cursor: "pointer",
+                  }}
+                >
+                  X
+                </button>
+              </div>
             ))}
           </div>
 

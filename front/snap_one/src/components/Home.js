@@ -115,22 +115,26 @@ function Home() {
 
   return (
     <>
-      <div className="pinterest-feed">
-        {photos.map((photoId) => (
-          <div key={photoId} className="pinterest-item">
-            <img
-              key={photoId}
-              src={`/api/photos/${photoId}?api=${userInfo?.apiKey}&uname=${userInfo?.username}`}
-              alt={`Photo ${photoId}`}
-              onClick={() => handleImageClick(photoId)}
-            />
-            <Button variant="danger" onClick={() => handleDeletePhoto(photoId)}>
-              Delete Photo
-            </Button>
-          </div>
-        ))}
+      <div className="content">
+        <div className="pinterest-feed">
+          {photos.map((photoId) => (
+            <div key={photoId} className="pinterest-item">
+              <img
+                key={photoId}
+                src={`/api/photos/${photoId}?api=${userInfo?.apiKey}&uname=${userInfo?.username}`}
+                alt={`Photo ${photoId}`}
+                onClick={() => handleImageClick(photoId)}
+              />
+              <Button
+                variant="danger"
+                onClick={() => handleDeletePhoto(photoId)}
+              >
+                Delete Photo
+              </Button>
+            </div>
+          ))}
+        </div>
       </div>
-
       {/* Modal: Fotoğrafın büyük hali ve puanlama kısmı */}
       {selectedPhoto && (
         <Modal

@@ -80,18 +80,14 @@
     cursor: pointer;
   }
   
-  /* Button Styling */
-  button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+
+
+  body{
+    margin-left: 60px;
   }
-  
-  button:hover {
-    background-color: #218838;
+  .content {
+    margin-left: 70px; /* Navbar genişliği kadar boşluk bırak */
+    padding: 20px; /* İçerik kenar boşluğu */
+    min-height: 100vh; /* İçerik tam ekran yüksekliğinde */
+ /* Hafif bir arka plan rengi */
   }
-  

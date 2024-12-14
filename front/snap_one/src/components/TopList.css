@@ -1,0 +1,54 @@
+/* Genel Konteyner */
+.top-photos-container {
+    text-align: center;
+    margin: 20px;
+  }
+  
+  /* Fotoğrafların Grid Sistemi */
+  .photo-grid {
+    display: flex;
+    flex-wrap: wrap; /* Dağınık görünüm için sarma */
+    gap: 20px; /* Fotoğraflar arası boşluk */
+    justify-content: center; /* Fotoğrafları yatay ortala */
+  }
+  
+  /* Fotoğraf Kutusu */
+  .photo-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Fotoğrafın Kendisi */
+  .photo-img {
+    border-radius: 10px; /* Fotoğraflara hafif köşe yuvarlama */
+    transition: transform 0.3s ease, border 0.3s ease; /* Hover animasyonu */
+    max-width: 100%; /* Orijinal boyut */
+    max-height: 300px; /* Yükseklik limiti */
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  
+  /* Hover Durumu */
+  .photo-img:hover {
+    border: 3px solid pink; /* Hover durumunda pembe border */
+    transform: scale(1.1); /* Hover durumunda fotoğrafı büyüt */
+  }
+  
+  /* Rank ve Puan */
+  .photo-rank,
+  .photo-score {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .content {
+    margin-left: 70px; /* Navbar genişliği kadar boşluk bırak */
+    padding: 20px; /* İçerik kenar boşluğu */
+    min-height: 100vh; /* İçerik tam ekran yüksekliğinde */
+ /* Hafif bir arka plan rengi */
+  }

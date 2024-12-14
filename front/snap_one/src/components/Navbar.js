@@ -23,31 +23,37 @@ function Navbar() {
         <li className="navbar-item">
           <Link to="/" className="navbar-link">
             <img src={cavi} alt="Home" className="navbar-icon" />
+            <span>Home</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/login" className="navbar-link">
             <img src={cavi} alt="Login" className="navbar-icon" />
+            <span>Login</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/register" className="navbar-link">
             <img src={cavi} alt="Register" className="navbar-icon" />
+            <span>Register</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/profile" className="navbar-link">
             <img src={cavi} alt="Profile" className="navbar-icon" />
+            <span>Profile</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/list" className="navbar-link">
             <img src={cavi} alt="Profile" className="navbar-icon" />
+            <span>List</span>
           </Link>
         </li>
         <li className="navbar-item">
-          <button onClick={handleLogout} className="navbar-link logout-btn">
+          <button onClick={handleLogout}>
             <img src="/images/cavi.jpeg" alt="Logout" className="navbar-icon" />
+            <span>Logout</span>
           </button>
         </li>
       </ul>

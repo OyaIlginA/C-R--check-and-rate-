@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import "./TopList.css";
 
 const TopPhotos = () => {
   const [TopPhotos, setTopPhotos] = useState([]);
@@ -6,21 +7,25 @@ const TopPhotos = () => {
   const [error, setError] = useState(null);
 
   // Backend credentials (example placeholders)
-  const API_KEY = sessionStorage.getItem('apiKey');
-  const USERNAME = sessionStorage.getItem('username');
+  const API_KEY = sessionStorage.getItem("apiKey");
+  const USERNAME = sessionStorage.getItem("username");
 
   useEffect(() => {
     const fetchTopPhotos = async () => {
       try {
         // Fetch all photo IDs
-        const allPhotosResponse = await fetch(`/api/photos/all?api=${API_KEY}&uname=${USERNAME}`);
+        const allPhotosResponse = await fetch(
+          `/api/photos/all?api=${API_KEY}&uname=${USERNAME}`
+        );
         const allPhotosData = await allPhotosResponse.json();
 
         const photoIds = allPhotosData;
 
         // Fetch average score for each photo
         const scorePromises = photoIds.map(async (photoId) => {
-          const response = await fetch(`/api/photos/${photoId}/averageScore?api=${API_KEY}&uname=${USERNAME}`);
+          const response = await fetch(
+            `/api/photos/${photoId}/averageScore?api=${API_KEY}&uname=${USERNAME}`
+          );
           const data = await response.json();
           return { photoId, averageScore: data.averageScore };
         });
@@ -48,21 +53,25 @@ const TopPhotos = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <h1>Top 10 Fotoğraf</h1>
-      <ul>
-        {TopPhotos.map((user, index) => (
-          <li key={user.photoId}>
-            <strong>Rank {index + 1}:</strong> <img
-              key={user.photoId}
-              src={`/api/photos/${user.photoId}?api=${API_KEY}&uname=${USERNAME}`}
-              alt="User Photo"
-              style={{ width: "150px", height: "150px", margin: "10px" }}
-            /> 
-            Ortalama Puan: {user.averageScore.toFixed(2)}
-          </li>
-        ))}
-      </ul>
+    <div className="content">
+      <div className="top-photos-container">
+        <h1>Top 10 Fotoğraf</h1>
+        <div className="photo-grid">
+          {TopPhotos.map((photo, index) => (
+            <div key={photo.photoId} className="photo-item">
+              <span className="photo-rank">Rank {index + 1}</span>
+              <img
+                src={`/api/photos/${photo.photoId}?api=${API_KEY}&uname=${USERNAME}`}
+                alt={`User Photo Rank ${index + 1}`}
+                className="photo-img"
+              />
+              <span className="photo-score">
+                Ortalama Puan: {photo.averageScore.toFixed(2)}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

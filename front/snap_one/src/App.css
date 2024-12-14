@@ -1,56 +1,156 @@
-.App {
+/* Genel sayfa stili */
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #f5c6cb, #e3a8f1); /* Pembe ve mor tonları */
+  color: #333;
+  margin-left: 60px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Navbar için stil */
+nav {
+  background-color: #fff; /* Beyaz zemin */
+  padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-nav ul {
-  display: flex;
-  list-style: none;
-  padding: 0;
-}
-
-nav li {
+nav a {
+  text-decoration: none;
+  color: #6c5ce7; /* Mor tonları */
   margin-right: 20px;
+  font-weight: bold;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #f78da7; /* Soft pembe */
+}
+
+/* Sayfa başlıkları */
+h1 {
+  color: #6c5ce7; /* Mor tonları */
+  font-size: 3rem;
+  font-weight: 600;
+  margin-top: 100px; /* Navbar'a kaymaması için */
+}
+
+/* Bileşenler arasındaki alan */
+div {
+  margin-top: 20px;
+}
+
+/* Kayıt ve giriş formu stilini şık yapalım */
+input, button {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #e3a8f1;
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
 }
 
 button {
-  padding: 10px;
-  background-color: red;
+  background-color: #6c5ce7; /* Mor tonları */
   color: white;
-  border: none;
   cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #f78da7; /* Soft pembe */
+}
+
+/* Profil ve Feed sayfaları için stil */
+.profile-container, .feed-container {
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 800px;
+}
+
+/* Linkler */
+a {
+  color: #6c5ce7;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #f78da7; /* Soft pembe */
+}
+
+/* Genel butonlar */
+button {
+  background-color: #6c5ce7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+body {
+  margin-left: 60px; /* Navbar genişliği kadar sol boşluk bırak */
+}
+
+
+button:hover {
+  background-color: #f78da7;
+}
+
+/* Feed component */
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Footer kısmı için stil */
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  color: #6c5ce7;
+}
+
+/* Responsive tasarım için */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .profile-container, .feed-container {
+    width: 100%;
+    padding: 15px;
+  }
 }

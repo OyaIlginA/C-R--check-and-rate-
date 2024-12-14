@@ -1,0 +1,87 @@
+/* Profile.css */
+.profile-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f3f6; /* Yumuşak pembe arka plan */
+    border-radius: 10px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    text-align: center;
+    color: #d63d6f; /* Pembe başlık */
+  }
+  
+  h3 {
+    color: #d63d6f; /* Pembe başlık */
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #d63d6f;
+    display: block;
+    margin: 20px auto;
+  }
+  
+  .photo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  
+  .photo-container {
+    position: relative;
+  }
+  
+  .photo-thumbnail {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+  
+  .delete-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #d63d6f;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .delete-button:hover {
+    background-color: #bf3554;
+  }
+  
+  .upload-button {
+    background-color: #d63d6f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  .upload-button:hover {
+    background-color: #bf3554;
+  }
+  
+  input[type="file"] {
+    margin: 10px 0;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #333;
+  }
+  
