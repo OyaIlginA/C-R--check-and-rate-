@@ -29,31 +29,31 @@ function Navbar() {
         <li className="navbar-item">
           <Link to="/login" className="navbar-link">
             <img src={cavi} alt="Login" className="navbar-icon" />
-            <span>Login</span>
+            <span>Giriş</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/register" className="navbar-link">
             <img src={cavi} alt="Register" className="navbar-icon" />
-            <span>Register</span>
+            <span>Kayıt Ol!</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/profile" className="navbar-link">
             <img src={cavi} alt="Profile" className="navbar-icon" />
-            <span>Profile</span>
+            <span>Profil</span>
           </Link>
         </li>
         <li className="navbar-item">
           <Link to="/list" className="navbar-link">
             <img src={cavi} alt="Profile" className="navbar-icon" />
-            <span>List</span>
+            <span>Listeler</span>
           </Link>
         </li>
         <li className="navbar-item">
           <button onClick={handleLogout}>
             <img src="/images/cavi.jpeg" alt="Logout" className="navbar-icon" />
-            <span>Logout</span>
+            <span>çıkış</span>
           </button>
         </li>
       </ul>

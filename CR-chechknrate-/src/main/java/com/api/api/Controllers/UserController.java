@@ -136,10 +136,29 @@ public class UserController {
         }
     }
 
-    // Kullanıcıyı sil
+    // @DeleteMapping("/{userId}")
+    //    public ResponseEntity<String> deleteOneUser(@PathVariable String userId, @RequestParam("api") String apikey) {
+    //        Optional<User> existingUser = userRepo.findById(userId);
+    //
+    //        if (existingUser.isPresent()) {
+    //            User dbUser = existingUser.get();
+    //
+    //            // API Key doğrulaması
+    //            if (apikey.equals(dbUser.getApikey())) {
+    //                userRepo.deleteById(userId);
+    //                return ResponseEntity.ok("User deleted successfully.");
+    //            } else {
+    //                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid API Key.");
+    //            }
+    //        } else {
+    //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+    //        }
+    //    }
+
+
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteOneUser(@PathVariable String userId, @RequestParam("api") String apikey) {
-        Optional<User> existingUser = userRepo.findById(userId);
+    public ResponseEntity<String> deleteOneUser(@PathVariable String userId,@RequestParam("api") String apikey, @RequestParam("uname") String uname) {
+        Optional<User> existingUser = userRepo.findByUsername(uname);
 
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
