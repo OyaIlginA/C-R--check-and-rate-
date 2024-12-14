@@ -41,6 +41,11 @@ function Navbar() {
           </Link>
         </li>
         <li className="navbar-item">
+          <Link to="/list" className="navbar-link">
+            <img src={cavi} alt="Profile" className="navbar-icon" />
+          </Link>
+        </li>
+        <li className="navbar-item">
           <button onClick={handleLogout} className="navbar-link logout-btn">
             <img src="/images/cavi.jpeg" alt="Logout" className="navbar-icon" />
           </button>

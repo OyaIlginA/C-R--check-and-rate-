@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
 import Feed from "./components/Feed";
+import TopPhotos from "./components/TopList";
 
 const App = () => {
   return (
@@ -19,6 +20,8 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/feed" element={<Feed />} />
+          <Route path="/list" element={<TopPhotos />} />
+          
         </Routes>
       </div>
     </Router>
