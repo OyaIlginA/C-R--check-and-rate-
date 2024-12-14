@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,6 +30,10 @@ public class PhotoService {
 
     @Autowired
     private UserRepo userRepo;
+
+
+    @Autowired
+    private PhotoRepo photoRepository;
 
     private final PhotoRepo photoRepo;
     public PhotoService(PhotoRepo photoRepo) {
@@ -84,7 +89,11 @@ public class PhotoService {
     }
 
     public void deletePhoto(String id) {
-        gridFSBucket.delete(new ObjectId(id));
+        Optional<Photo> photoOptional = photoRepository.findById(id);
+        if (photoOptional.isPresent()) {
+            photoRepository.delete(photoOptional.get());
+        }
+
     }
 
     public List<String> getAllPhotos() {

@@ -123,7 +123,7 @@ function Profile() {
       const response = await fetch(
         `/api/photos/${photoId}?api=${apiKey}&uname=${username}`,
         {
-          method: "DELETE",
+          method: "DELETE", //Burası 403 dönüyor g.o silmiyorsun işte amaaaa
         }
       );
 
@@ -131,14 +131,17 @@ function Profile() {
         // Fotoğraf silindikten sonra listeyi tekrar güncelle
         setPhotos(photos.filter((photo) => photo !== photoId)); // Re-fetch photos after deletion to ensure it's up to date
         setUploadMessage("Photo deleted successfully!");
+        console.log("response.ok");
       } else {
         // Eğer backend'den bir hata dönerse
         const data = await response.json();
         setUploadMessage(`Failed to delete photo: ${data.error}`);
+        console.log("response.error");
       }
     } catch (error) {
       console.error("Error deleting photo:", error);
       setUploadMessage("Error occurred while deleting photo.");
+      console.log("func.error");
     }
   };
 
@@ -168,7 +171,7 @@ function Profile() {
           )}
 
           <h3>Your Photos</h3>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
+          <div className="photo-container">
             {photos.map((photoId) => (
               <div key={photoId} style={{ position: "relative" }}>
                 <img

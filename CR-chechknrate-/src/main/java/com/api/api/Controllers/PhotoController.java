@@ -161,7 +161,7 @@ public class PhotoController {
                 }
             } else {
                 // API key hatalı
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid API Key.");
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Invalid API Key.");
             }
         } else {
             // Kullanıcı bulunamadı
