@@ -54,23 +54,69 @@
     font-size: 12px;
     margin-top: 5px; /* Yazıyı resimden ayır */
   }
+
+  .logout-btn {
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    color: #000; /* Metin rengi */
+    display: flex;
+    flex-direction: column; /* İkon ve yazıyı dikey hizala */
+    align-items: center;
+    margin: 20px 0; /* Diğer öğelerle aynı aralık */
+    text-align: center;
+    background: none; /* Buton arka planını tamamen kaldır */
+    border: none; /* Buton kenarlığını kaldır */
+    cursor: pointer; /* İmleç tipi */
+}
+
+.logout-btn .navbar-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Resmi yuvarlak yap */
+    border: 3px solid transparent; /* İlk durumda şeffaf border */
+    transition: border 0.3s ease-in-out; /* Hover efekti için geçiş animasyonu */
+}
+
+.logout-btn:hover .navbar-icon {
+    border: 3px solid pink; /* Hover durumunda pembe border */
+}
+
+.logout-btn span {
+    font-size: 12px; /* Metin boyutu */
+    margin-top: 5px; /* Yazıyı ikonun altına taşı */
+}
+.logout-btn-container {
+  margin-top: auto; /* Logout butonunu en alta it */
+  margin-bottom: 20px; /* Navbar altına boşluk bırak */
+}
+
   
   .logout-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
+    text-decoration: none; /* Alt çizgiyi kaldır */
+    color: #000; /* Metin rengi */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* İkon ve yazıyı dikey hizala */
     align-items: center;
-    color: #000; /* Logout buton metni */
-  }
-  
-  .logout-btn:hover .navbar-icon {
-    border: 3px solid pink; /* Logout ikonu için hover efekti */
-  }
-  
-  .logout-btn a {
-    font-size: 12px;
-    margin-top: 5px; /* Logout yazısını ikonun altına taşı */
-  }
-  
+    margin: 20px 0; /* Diğer öğelerle aynı aralık */
+    text-align: center;
+    background: none; /* Buton arka planını tamamen kaldır */
+    border: none; /* Buton kenarlığını kaldır */
+    cursor: pointer; /* İmleç tipi */
+}
+
+.logout-btn .navbar-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Resmi yuvarlak yap */
+    border: 3px solid transparent; /* İlk durumda şeffaf border */
+    transition: border 0.3s ease-in-out; /* Hover efekti için geçiş animasyonu */
+}
+
+.logout-btn:hover .navbar-icon {
+    border: 3px solid pink; /* Hover durumunda pembe border */
+}
+
+.logout-btn span {
+    font-size: 15px; /* Metin boyutu */
+    margin-top: 5px; /* Yazıyı ikonun altına taşı */
+    font-weight: bold;
+}

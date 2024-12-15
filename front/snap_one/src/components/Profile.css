@@ -1,118 +1,134 @@
-/* Profile.css */
-.profile-container {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  background-color: #f9f3f6; /* Yumuşak pembe arka plan */
-  border-radius: 10px;
-  max-width: 800px;
-  margin: 0 auto;
+/* Profile.css - Yazılar için tasarım */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #fdf5f8; /* Genel arka plan - Yumuşak pembe */
+  color: #333; /* Genel yazı rengi */
+  line-height: 1.6; /* Satır yüksekliği */
+  margin: 0;
+  padding: 0;
 }
 
+/* Ana Container */
+.profile-container {
+  background-color: #ffffff; /* Beyaz kutu */
+  padding: 20px;
+  margin: 30px auto;
+  border-radius: 15px;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti */
+}
+
+/* Başlıklar */
 h2 {
   text-align: center;
-  color: #d63d6f; /* Pembe başlık */
+  font-size: 28px;
+  color: #d63d6f; /* Parlak pembe */
+  margin-bottom: 10px;
 }
 
 h3 {
-  color: #d63d6f; /* Pembe başlık */
+  font-size: 22px;
+  color: #d63d6f;
+  margin-top: 20px;
 }
 
-img:hover{
-  transition: none;
+/* Paragraflar */
+p {
+  font-size: 16px;
+  color: #555; /* Hafif gri ton */
+  margin-bottom: 10px;
 }
 
-.photo{
-  border-radius: 10px;
-  max-width: 100%;
-  max-height: 300px;
-  margin-bottom: 20px;
-  margin-right: 20px;
-  display: block; /* Fotoğraf düzgün görünür */
-  width: 100%;
+p strong {
+  color: #d63d6f; /* Vurgu için pembe */
 }
 
-.photo-img {
-  border-radius: 10px; /* Fotoğraflara hafif köşe yuvarlama */
-  max-width: 50%; /* Orijinal boyut */
-  max-height: 300px; /* Yükseklik limiti */
-  margin-right: 20px;
+/* Kullanıcı Bilgileri */
+.user-info {
   margin-bottom: 20px;
 }
 
-.profile-image {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 4px solid #d63d6f;
-  display: block;
-  margin: 20px auto;
-}
-
-.photo-container {
-  position: relative;
-}
-
-.photo-thumbnail {
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px; /* Köşe yuvarlama */
-  border: 3px solid transparent; /* Başlangıçta border etkisi */
-  transition: none; /* Geçiş efekti tamamen kaldırıldı */
-}
-
+/* Fotoğraf Grid Alanı */
 .photo-grid {
-  position: relative; /* Fotoğrafın içindeki mutlak konumlandırma için gerekli */
-  display: inline-block; /* Fotoğraf boyutuna göre hizalanır */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
 }
 
 .photo-container {
   position: relative;
-  display: wrap; /* Fotoğrafların yan yana gelmesi için */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.photo-img {
-  display: block; /* Fotoğraf düzgün görünür */
-  width: 100%; /* Fotoğraf boyutunu korur */
-  border-radius: 10px; /* Köşe yuvarlama */
+/* Fotoğraflar */
+.photo {
+  width: 100%;
+  border-radius: 10px;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
+.photo:hover {
+  transform: scale(1.05); /* Hover efekti */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover gölge efekti */
+}
+
+/* Fotoğraf Silme Butonu */
 .delete-button {
   position: absolute;
-  top: 5px; /* Fotoğrafın üstünden mesafe */
-  right: 5px; /* Fotoğrafın sağından mesafe */
-  background-color: rgba(255, 0, 149, 0.8); /* Yarı saydam kırmızı */
-  color: white; /* Beyaz yazı rengi */
-  border: none; /* Kenarlık kaldırılır */
-  border-radius: 8.4px; /* Tam yuvarlak görünüm */
-  width: 25px; /* Buton genişliği */
-  height: 25px; /* Buton yüksekliği */
-  display: flex; /* Buton içeriğini hizalamak için */
-  align-items: center; /* Dikey hizalama */
-  justify-content: center; /* Yatay hizalama */
-  font-size: 14px; /* Buton içeriği boyutu */
-  cursor: pointer; /* İmleç buton üzerine geldiğinde el simgesi */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
-  z-index: 10; /* Butonun fotoğraf üzerinde görünmesini sağlar */
-  transition: none; /* Hareket animasyonu kaldırıldı */
+  top: 5px;
+  right: 5px;
+  background-color: rgba(214, 61, 111, 0.9);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.delete-button:hover {
+  background-color: #b03150; /* Daha koyu pembe */
+  transform: scale(1.1);
+}
+
+/* Fotoğraf Yükleme Alanı */
+form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+input[type="file"] {
+  font-size: 14px;
+  color: #555;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 10px;
 }
 
 .upload-button {
   background-color: #d63d6f;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-  transition: none; /* Geçiş efekti tamamen kaldırıldı */
+  transition: background-color 0.2s ease-in-out;
 }
 
-input[type="file"] {
-  margin: 10px 0;
-}
-
-p {
-  font-size: 16px;
-  color: #333;
+.upload-button:hover {
+  background-color: #b03150;
 }
