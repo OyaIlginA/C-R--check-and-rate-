@@ -90,11 +90,14 @@ public class PhotoService {
 
 
     public void deletePhoto(String id) {
+        // Fotoğrafı veritabanından silme
         Optional<Photo> photoOptional = photoRepository.findById(id);
         if (photoOptional.isPresent()) {
             photoRepository.delete(photoOptional.get());
         }
 
+        // GridFS'teki dosyayı silme
+        gridFSBucket.delete(new ObjectId(id));
     }
 
 
