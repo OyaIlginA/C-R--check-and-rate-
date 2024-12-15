@@ -171,33 +171,20 @@ function Profile() {
           )}
 
           <h3>Your Photos</h3>
-          <div className="photo-container">
+          <div className="photo-grid">
             {photos.map((photoId) => (
-              <div key={photoId} style={{ position: "relative" }}>
+              <div key={photoId} className="photo-container">
                 <img
+                  className="photo"
                   src={`/api/photos/${photoId}?api=${sessionStorage.getItem(
                     "apiKey"
                   )}&uname=${sessionStorage.getItem(
                     "username"
                   )}&timestamp=${new Date().getTime()}`}
-                  style={{
-                    width: "150px",
-                    height: "150px",
-                    objectFit: "cover",
-                  }}
                 />
                 <button
+                  className="delete-button"
                   onClick={() => handlePhotoDelete(photoId)}
-                  style={{
-                    position: "absolute",
-                    top: "5px",
-                    right: "5px",
-                    background: "red",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "50%",
-                    cursor: "pointer",
-                  }}
                 >
                   X
                 </button>

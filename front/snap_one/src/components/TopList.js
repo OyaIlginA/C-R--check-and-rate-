@@ -54,8 +54,10 @@ const TopPhotos = () => {
     const fetchTopUsers = async () => {
       try {
         // Fetch all users
-        const allUsersResponse = await fetch(`/api/users?api=${API_KEY}&uname=${USERNAME}`);
-        
+        const allUsersResponse = await fetch(
+          `/api/users?api=${API_KEY}&uname=${USERNAME}`
+        );
+
         if (!allUsersResponse.ok) {
           throw new Error("Failed to fetch users");
         }
@@ -113,6 +115,7 @@ const TopPhotos = () => {
 
   return (
     <div className="content">
+      {/* Top Photos Section */}
       <div className="top-photos-container">
         <h1>Top 10 Fotoğraf</h1>
         <div className="photo-grid">
@@ -130,20 +133,25 @@ const TopPhotos = () => {
             </div>
           ))}
         </div>
-        <div>
+      </div>
+
+      {/* Top Users Section */}
+      <div className="top-users-container">
         <h1>Top 10 Kullanıcı</h1>
-        <ul style={{ listStyle: "none", padding: 0 }}>
+        <ul className="top-users-list">
           {topUsers.map((user, index) => (
             <li key={user.userId}>
-              <strong>Rank {index + 1}:</strong> {user.username} (Puan:{" "}
-              {user.averageScore.toFixed(2)})
+              <span className="username">
+                Rank {index + 1}: {user.username}
+              </span>
+              <span className="user-score">
+                Puan: {user.averageScore.toFixed(2)}
+              </span>
             </li>
           ))}
         </ul>
       </div>
-      </div>
     </div>
   );
 };
-
 export default TopPhotos;

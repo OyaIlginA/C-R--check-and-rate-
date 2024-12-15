@@ -18,6 +18,12 @@
     width: 100%;
     display: block;
     border-radius: 8px;
+    
+  }
+
+  .pinterest-item img:hover {
+    border: 7px solid pink; /* Hover durumunda pembe border */
+    transform: scale(1.1); /* Hover durumunda fotoğrafı büyüt */
   }
   
   /* Modal Backdrop - Background and Blur */
@@ -47,7 +53,7 @@
   }
   
   .modal-content {
-    background-color: white;
+    background-color: rgb(250, 170, 217);
     padding: 20px;
     border-radius: 10px;
     max-width: 600px;
@@ -78,6 +84,88 @@
     right: 10px;
     font-size: 30px;
     cursor: pointer;
+  }
+  
+  .modal-backdrop {
+    background-color: rgba(255, 182, 193, 0.8); /* Soft açık pembe */
+  }
+  
+  .modal-content {
+    background-color: #f9f3f6; /* Soft pembe */
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 500px;
+    margin: auto;
+  }
+  
+  .modal-header {
+    border-bottom: none;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    background-color: #d63d6f; /* Koyu pembe */
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-body .modal-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .modal-image {
+    border-radius: 10px;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .rating-container {
+    text-align: center;
+  }
+  
+  .star {
+    font-size: 30px;
+    color: #d3d3d3; /* Boş yıldız için gri */
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .star.selected {
+    color: #d63d6f; /* Seçili yıldız için koyu pembe */
+  }
+  
+  .modal-footer {
+    border-top: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .submit-button {
+    background-color: #d63d6f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-button:hover {
+    background-color: #bf3554;
   }
   
 

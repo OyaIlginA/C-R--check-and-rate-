@@ -83,26 +83,54 @@ function Home() {
     }
   };
 
+  // Fotoğraf silme işlemi
+  const handleDeletePhoto = async (photoId) => {
+    const { apiKey, username } = userInfo || {};
+
+    try {
+      const response = await fetch(
+        `/api/photos/${photoId}?api=${apiKey}&uname=${username}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        alert("Photo deleted successfully!");
+        // Fotoğrafı fotoğraflar listesinden kaldır
+        setPhotos(photos.filter((photo) => photo !== photoId));
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to delete photo: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error("Error while deleting photo:", error);
+      alert("An error occurred while deleting the photo.");
+    }
+  };
+
   const handleRatingChange = (e) => {
     setRating(Number(e.target.value)); // Kullanıcının girdiği puanı sayıya çeviriyoruz
   };
 
   return (
     <>
-      <div className="content">
-        <div className="pinterest-feed">
-          {photos.map((photoId) => (
-            <div key={photoId} className="pinterest-item">
-              <img
-                key={photoId}
-                src={`/api/photos/${photoId}?api=${userInfo?.apiKey}&uname=${userInfo?.username}`}
-                alt={`Photo ${photoId}`}
-                onClick={() => handleImageClick(photoId)}
-              />
-            </div>
-          ))}
-        </div>
+      <div className="pinterest-feed">
+        {photos.map((photoId) => (
+          <div key={photoId} className="pinterest-item">
+            <img
+              key={photoId}
+              src={`/api/photos/${photoId}?api=${userInfo?.apiKey}&uname=${userInfo?.username}`}
+              alt={`Photo ${photoId}`}
+              onClick={() => handleImageClick(photoId)}
+            />
+            <Button variant="danger" onClick={() => handleDeletePhoto(photoId)}>
+              Delete Photo
+            </Button>
+          </div>
+        ))}
       </div>
+
       {/* Modal: Fotoğrafın büyük hali ve puanlama kısmı */}
       {selectedPhoto && (
         <Modal

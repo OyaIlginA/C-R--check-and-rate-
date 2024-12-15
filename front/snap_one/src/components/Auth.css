@@ -1,0 +1,53 @@
+/* Sayfanın genel stili */
+
+  
+  /* Daktilo metni için stil */
+  .typing-container {
+    margin-bottom: 30px; /* Login formundan önce biraz boşluk bırakıyoruz */
+    font-size: 40px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bolder;
+    color: rgb(90, 5, 40);
+  }
+  
+  /* Login formunun stili */
+  .login-form-container {
+    background-color: #ffffff31; /* Beyaz arka plan */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 800px;
+    margin-top: 20px;
+  }
+  
+  .login-form-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-form-container label {
+    font-size: 16px;
+  }
+  
+  .login-form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .login-form-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: #d5006c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .login-form-container button:hover {
+    background-color: #f50057;
+  }
+  

@@ -52,3 +52,55 @@
     min-height: 100vh; /* İçerik tam ekran yüksekliğinde */
  /* Hafif bir arka plan rengi */
   }
+
+  .content {
+    display: flex;
+    flex-direction: row; /* Yatay bölünme için */
+    gap: 20px;
+  }
+  
+  .top-photos-container {
+    flex: 2; /* Fotoğraflar daha geniş alan kaplayacak */
+  }
+  
+  .top-users-container {
+    flex: 10; /* Kullanıcılar daha dar bir alan kaplayacak */
+    background-color: #ffe4e1; /* Pembe bir arka plan */
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .top-users-container h1 {
+    color: #ff1493; /* Parlak pembe başlık */
+    text-align: center;
+  }
+  
+  .top-users-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .top-users-list li {
+    font-size: 1.2em;
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ffc0cb;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .top-users-list li:last-child {
+    border-bottom: none; /* Son elemanın alt çizgisini kaldır */
+  }
+  
+  .username {
+    font-weight: bold;
+    color: #d63384; /* Kullanıcı adı için koyu pembe */
+  }
+  
+  .user-score {
+    color: #333;
+  }
+  

@@ -88,6 +88,7 @@ public class PhotoService {
         return outputStream.toByteArray();
     }
 
+
     public void deletePhoto(String id) {
         Optional<Photo> photoOptional = photoRepository.findById(id);
         if (photoOptional.isPresent()) {
@@ -96,6 +97,13 @@ public class PhotoService {
 
     }
 
+
+/*
+
+    public void deletePhoto(String id) {
+        gridFSBucket.delete(new ObjectId(id));
+    }
+  */
     public List<String> getAllPhotos() {
         List<String> photoIds = new ArrayList<>();
         gridFSBucket.find().forEach(gridFSFile -> photoIds.add(gridFSFile.getObjectId().toString()));
