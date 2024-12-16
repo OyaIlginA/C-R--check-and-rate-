@@ -128,7 +128,10 @@ const TopPhotos = () => {
                 className="photo-img"
               />
               <span className="photo-score">
-                Ortalama Puan: {photo.averageScore.toFixed(2)}
+                  Ortalama Puan:{" "}
+                {photo.averageScore !== undefined && photo.averageScore !== null
+                ? photo.averageScore.toFixed(2)
+                : "N/A"}
               </span>
             </div>
           ))}
@@ -145,7 +148,10 @@ const TopPhotos = () => {
                 Rank {index + 1}: {user.username}
               </span>
               <span className="user-score">
-                Puan: {user.averageScore.toFixed(2)}
+                      Puan:{" "}
+                {user.averageScore !== undefined && user.averageScore !== null
+                  ? user.averageScore.toFixed(2)
+                  : "N/A"}
               </span>
             </li>
           ))}
