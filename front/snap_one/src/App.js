@@ -12,7 +12,6 @@ import TopPhotos from "./components/TopList";
 const App = () => {
   return (
     <Router>
-      <title>C&R</title>
       <div>
         <Navbar />
         <Routes>

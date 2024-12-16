@@ -39,20 +39,22 @@ function Login() {
   };
 
   useEffect(() => {
-    const targetText = "Puanlıyoruz ama yargılamıyoruz";
+    const targetText = "Piuanlıyoruz ama yargılamıyoruz";
     let index = 0;
+
     const interval = setInterval(() => {
       setTypingText((prev) => {
-        const updatedText = prev + targetText[index];
-        return updatedText;
+        if (index < targetText.length) {
+          return prev + targetText[index]; // Harfi ekle
+        } else {
+          clearInterval(interval); // Tüm harfler eklenince dur
+          return prev; // Mevcut metni koru
+        }
       });
       index++;
-      if (index === targetText.length) {
-        clearInterval(interval);
-      }
     }, 100);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval); // Component unmount edilirse interval'ı temizle
   }, []);
 
   return (
