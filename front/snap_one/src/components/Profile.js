@@ -147,30 +147,30 @@ function Profile() {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h2>Profile Page</h2>
+      <h2>Profil Sayfan</h2>
       {userInfo ? (
         <div>
-          <h3>Welcome, {userInfo.username}</h3>
+          <h3 className="title">Hoşgeldin, {userInfo.username}</h3>
           <img
             src={star_photo}
             alt="Profile"
             style={{ width: "150px", height: "150px", borderRadius: "50%" }}
           />
           <p>
-            <strong>User ID:</strong> {userInfo.userId}
+            <strong>Kullanıcı ID:</strong> {userInfo.userId}
           </p>
           <p>
-            <strong>Username:</strong> {userInfo.username}
+            <strong>Kullanıcı Adı:</strong> {userInfo.username}
           </p>
           {averageScore !== null ? (
             <p>
-              <strong>Average Score:</strong> {averageScore}
+              <strong>Ortalama Skor:</strong> {averageScore}
             </p>
           ) : (
-            <p>Loading average score...</p>
+            <p>Ortalama skor yükleniyor...</p>
           )}
 
-          <h3>Your Photos</h3>
+          <h3>Senin Arşivin^^ </h3>
           <div className="photo-grid">
             {photos.map((photoId) => (
               <div key={photoId} className="photo-container">
@@ -192,14 +192,17 @@ function Profile() {
             ))}
           </div>
 
-          <h3>Upload a Photo</h3>
+          <h3>Bir Fotoğraf Daha Yükle!</h3>
           <form onSubmit={handlePhotoUpload}>
             <input
               type="file"
               accept="image/*"
               onChange={(e) => setFile(e.target.files[0])}
             />
-            <button type="submit">Upload</button>
+            <button className="upload-button" type="submit">
+              Yükle Hadii
+            </button>
+            <h5>Yükle yükle,yargılamıyoruz ^_'</h5>
           </form>
           {uploadMessage && <p>{uploadMessage}</p>}
         </div>

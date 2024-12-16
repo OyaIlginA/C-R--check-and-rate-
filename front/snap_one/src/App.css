@@ -13,25 +13,7 @@ body {
 }
 
 /* Navbar için stil */
-nav {
-  background-color: #fff; /* Beyaz zemin */
-  padding: 15px 30px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
 
-nav a {
-  text-decoration: none;
-  color: #6c5ce7; /* Mor tonları */
-  margin-right: 20px;
-  font-weight: bold;
-  font-size: 18px;
-  transition: color 0.3s;
-}
 
 nav a:hover {
   color: #f78da7; /* Soft pembe */
@@ -65,16 +47,6 @@ input[type="text"], input[type="password"], input[type="email"] {
   margin: 10px auto;
 }
 
-button {
-  background-color: #6c5ce7; /* Mor tonları */
-  color: white;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #f78da7; /* Soft pembe */
-}
 
 /* Profil ve Feed sayfaları için stil */
 .profile-container, .feed-container {
@@ -99,16 +71,6 @@ a:hover {
   color: #f78da7; /* Soft pembe */
 }
 
-/* Genel butonlar */
-button {
-  background-color: #6c5ce7;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
 
 body {
   margin-left: 60px; /* Navbar genişliği kadar sol boşluk bırak */
@@ -129,14 +91,19 @@ button:hover {
 
 /* Footer kısmı için stil */
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
-  width: 100%;
-  background-color: #fff;
+  width: 100vh;
+  margin-left: 450px;
+  background-color: #ffd7ee;
+  color: #ff3f8f;
   padding: 10px 20px;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
   text-align: center;
-  color: #6c5ce7;
+
+}
+p{
+  color: #ff3f8f;
 }
 
 /* Responsive tasarım için */

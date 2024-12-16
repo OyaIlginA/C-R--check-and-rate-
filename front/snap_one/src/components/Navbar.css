@@ -4,7 +4,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 60px; /* Navbar genişliği */
+    width: 85px; /* Navbar genişliği */
     height: 100vh; /* Tam ekran boyutunda */
     display: flex;
     flex-direction: column; /* Dikey hizalama */
@@ -17,7 +17,7 @@
   .navbar-list {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-top: 150px;
     display: flex;
     flex-direction: column; /* Dikey sıralama */
     align-items: center; /* İçeriklerin ortalanması */
@@ -40,8 +40,8 @@
   }
   
   .navbar-icon {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%; /* Resmi yuvarlak yap */
     transition: all 0.3s ease-in-out; /* Hover geçişleri için animasyon */
   }

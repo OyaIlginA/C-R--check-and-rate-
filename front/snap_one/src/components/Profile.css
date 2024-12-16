@@ -32,7 +32,10 @@ h3 {
   color: #d63d6f;
   margin-top: 20px;
 }
-
+.title{
+  font-weight: bold;
+  font-style: italic;
+}
 /* Paragraflar */
 p {
   font-size: 16px;
@@ -68,6 +71,7 @@ p strong {
 /* Fotoğraflar */
 .photo {
   width: 100%;
+  max-width: 200px;
   border-radius: 10px;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
@@ -85,7 +89,7 @@ p strong {
   background-color: rgba(214, 61, 111, 0.9);
   color: white;
   border: none;
-  border-radius: 50%;
+  border-radius: 10px;
   width: 30px;
   height: 30px;
   display: flex;
@@ -109,13 +113,15 @@ form {
 
 input[type="file"] {
   font-size: 14px;
-  color: #555;
-  padding: 5px;
-  border: 1px solid #ddd;
+  font-style: italic;
+  color: #3b3b3b;
+  padding: 7px;
+  border: 3px solid #ff208f;
   border-radius: 5px;
   width: 100%;
   max-width: 300px;
   margin-bottom: 10px;
+  margin-right: 25px;
 }
 
 .upload-button {
@@ -123,7 +129,7 @@ input[type="file"] {
   color: white;
   border: none;
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;

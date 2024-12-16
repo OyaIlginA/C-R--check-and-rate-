@@ -29,6 +29,7 @@
   /* Modal Backdrop - Background and Blur */
   .modal-backdrop {
     backdrop-filter: blur(8px); /* Arka plan bulanıklığı */
+    min-height: 100vh;
     background-color: rgba(0, 0, 0, 0.5); /* Hafif siyah bir gölge */
     position: fixed;
     top: 0;
@@ -37,6 +38,7 @@
     height: 100%;
     z-index: 999; /* Modal arka planının ön planda olması */
   }
+
   
   /* Modal Dialog - Flex for Centering */
   .modal-dialog {
@@ -69,8 +71,9 @@
   }
   
   .modal-image {
-    width: 100%;
+    width: 75%;
     height: auto;
+    border-radius: 10px;
   }
   
   .rating-container {
@@ -87,7 +90,7 @@
   }
   
   .modal-backdrop {
-    background-color: rgba(255, 182, 193, 0.8); /* Soft açık pembe */
+    background-color: rgba(255, 182, 193, 0); /* Soft açık pembe */
   }
   
   .modal-content {

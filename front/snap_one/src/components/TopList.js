@@ -154,4 +154,5 @@ const TopPhotos = () => {
     </div>
   );
 };
+
 export default TopPhotos;

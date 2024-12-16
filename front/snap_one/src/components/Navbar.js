@@ -28,8 +28,8 @@ function Navbar() {
       <ul className="navbar-list">
         <li className="navbar-item">
           <Link to="/" className="navbar-link">
-            <img src={home} alt="Home" className="navbar-icon" />
-            <span>Home</span>
+            <img src={home} alt="Akış" className="navbar-icon" />
+            <span>Akış</span>
           </Link>
         </li>
         <li className="navbar-item">
