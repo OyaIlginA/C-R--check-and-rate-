@@ -40,13 +40,13 @@ public class PhotoService {
         this.photoRepo = photoRepo;
     }
     public List<Photo> getUserPhotos(String userId) {
-// Kullanıcıyı bul
+
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // Kullanıcının fotoğraf listesini döndür
+
         List<Photo> photos = user.getPhotos();
-        return photos != null ? photos : new ArrayList<>(); // Null güvenliği
+        return photos != null ? photos : new ArrayList<>();
     }
 
 
@@ -55,21 +55,10 @@ public class PhotoService {
         User user = userRepo.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // Fotoğraf ID'lerini döndür
         return user.getPhotos().stream()
-                .map(Photo::getId) // Fotoğraf ID'lerini al
+                .map(Photo::getId)
                 .collect(Collectors.toList());
     }
-
-
-    //public String uploadPhoto(MultipartFile file, String username) throws IOException {
-    //    ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
-    //
-    //    // Fotoğrafı kullanıcıya ekle
-    //   // String photoId = fileId.toString();
-    //    //userService.addPhotoToUser(username, photoId);
-    //    return fileId.toString();
-    //}
 
     public byte[] getPhoto(String id) throws IOException {
         GridFSFile gridFSFile = gridFSBucket.find(new org.bson.Document("_id", new ObjectId(id))).first();
@@ -90,38 +79,19 @@ public class PhotoService {
 
 
     public void deletePhoto(String id) {
-        // Fotoğrafı veritabanından silme
+
         Optional<Photo> photoOptional = photoRepository.findById(id);
         photoOptional.ifPresent(photo -> photoRepository.delete(photo));
 
-        // GridFS'teki dosyayı silme
         gridFSBucket.delete(new ObjectId(id));
     }
 
-
-/*
-
-    public void deletePhoto(String id) {
-        gridFSBucket.delete(new ObjectId(id));
-    }
-  */
     public List<String> getAllPhotos() {
         List<String> photoIds = new ArrayList<>();
         gridFSBucket.find().forEach(gridFSFile -> photoIds.add(gridFSFile.getObjectId().toString()));
 
         return photoIds;
     }
-/*
-    public List<String> getAllPhotos() {
-        List<String> photoUrls = new ArrayList<>();
-        gridFSBucket.find().forEach(gridFSFile -> {
-            String photoId = gridFSFile.getObjectId().toString();
-            String photoUrl = "/api/photo/" + photoId;  // Fotoğraf URL'sini oluşturuyoruz
-            photoUrls.add(photoUrl);
-        });
-        return photoUrls;
-    }
-*/
 
     //rating işlemleri ------------------------------------------------------------------------------------------------
 
@@ -133,7 +103,6 @@ public class PhotoService {
             throw new IllegalArgumentException("User has already rated this photo");
         }
 
-        // Yeni bir puan ekle
         Rating newRating = new Rating();
         newRating.setUserId(userId);
         newRating.setScore(score);
@@ -142,11 +111,9 @@ public class PhotoService {
         photo.setAverageScore(photo.calculateAverageScore());
         photoRepo.save(photo);
 
-        // Kullanıcıyı güncelle
         User owner = userRepo.findById(photo.getOwner().getId())
                 .orElseThrow(() -> new IllegalArgumentException("Owner not found"));
 
-        // Null kontrolü yapın (önlem amaçlı)
         if (owner.getPhotos() == null) {
             owner.setPhotos(new ArrayList<>());
         }
@@ -154,14 +121,14 @@ public class PhotoService {
         userRepo.save(owner);
     }
     public String uploadPhoto(MultipartFile file, String ownerId) throws IOException {
-        // Kullanıcıyı kontrol et
+
         User owner = userRepo.findById(ownerId)
                 .orElseThrow(() -> new IllegalArgumentException("Owner not found"));
         System.out.println("11");
-        // Fotoğrafı GridFS'e yükle
+
         ObjectId fileId = gridFSBucket.uploadFromStream(file.getOriginalFilename(), file.getInputStream());
         System.out.println("12");
-        // Metadata oluştur ve kaydet
+
         Photo photo = new Photo();
         photo.setId(fileId.toString());
         System.out.println("13");
@@ -175,10 +142,10 @@ public class PhotoService {
         photoRepo.save(photo);
         System.out.println("16");
 
-        // Kullanıcının `photos` listesine yeni fotoğrafı ekle
+
         owner.getPhotos().add(photo);
         System.out.println("17");
-        userRepo.save(owner); // Kullanıcıyı güncelle
+        userRepo.save(owner);
         System.out.println("18");
 
         return fileId.toString();

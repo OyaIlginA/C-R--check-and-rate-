@@ -19,8 +19,8 @@ public class SecurityConfig {
                         .requestMatchers("/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .httpBasic(httpBasic -> httpBasic.disable()) // Basic Auth devre dışı
-                .formLogin(form -> form.disable()); // Form login tamamen devre dışı;
+                .httpBasic(httpBasic -> httpBasic.disable())
+                .formLogin(form -> form.disable());
         return http.build();
     }
 

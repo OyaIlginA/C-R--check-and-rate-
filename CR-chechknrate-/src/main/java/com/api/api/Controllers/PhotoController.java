@@ -29,78 +29,27 @@ public class PhotoController {
     @Autowired
     private UserRepo userRepo;
 
-    //@PostMapping("/upload")
-    //    public ResponseEntity<String> uploadPhoto(
-    //            @RequestParam("file") MultipartFile file,
-    //            @RequestParam("api") String apikey,
-    //            @RequestParam("uname") String uname) {
-    //
-    //        // Kullanıcı adı üzerinden API Key doğrulaması
-    //        Optional<User> existingUser = userRepo.findByUsername(uname);
-    //        if (existingUser.isPresent()) {
-    //            User dbUser = existingUser.get();
-    //            System.out.println("3");
-    //            if (apikey.equals(dbUser.getApikey())) {
-    //                System.out.println("4");// API Key doğrulaması başarılı
-    //                try {System.out.println("2");
-    //                    // Fotoğrafı yükle
-    //                    String photoId = photoService.uploadPhoto(file, dbUser.getUsername());
-    //                    System.out.println("6");
-    //
-    //                  //  Photo photo = new Photo();
-    //                    //photo.setUserId(dbUser.getId());
-    //
-    //                    // Fotoğrafın başarılı bir şekilde yüklendiği mesajını döndür
-    //                    return ResponseEntity.ok("Photo uploaded successfully. ID: " + photoId + " User ID: " + dbUser.getId());
-    //                } catch (IOException e) {
-    //                    System.out.println("5");
-    //                    // Fotoğraf yükleme hatası
-    //                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading photo: " + e.getMessage());
-    //                }
-    //            } else {
-    //                // API Key hatalı
-    //                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid API Key.");
-    //            }
-    //        } else {
-    //            // Kullanıcı bulunamadı
-    //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-    //        }
-    //    }
-/*
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<List<String>> getUserPhotos(@PathVariable String userId) {
-        try {
-            List<String> userPhotos = photoService.getPhotosByUser(userId);
-            return ResponseEntity.ok(userPhotos);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body(null);
-        }
-    }
 
- */
-
-
-    // Kullanıcının fotoğraflarını al
     @GetMapping("/user/{userid}")
     public ResponseEntity<List<String>> getUserPhotos(@PathVariable String userid,
                                                       @RequestParam("api") String apikey,
                                                       @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
+
         System.out.println("5");
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             System.out.println("1");
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
-                    // Fotoğraf ID'lerini al
+
                     List<String> photoIds = photoService.getPhotosByUser(userid);
 
-                    // ID'leri JSON formatında döndür
+
                     return ResponseEntity.ok(photoIds);
                 } catch (Exception e) {
-                    // Hata durumunda yanıt
+
                     return ResponseEntity.status(500).body(null);
                 }
             }
@@ -109,19 +58,16 @@ public class PhotoController {
     }
 
 
-
-
-    // Fotoğraf verisini al
     @GetMapping("/{id}")
     public ResponseEntity<byte[]> getPhoto(@PathVariable String id,
                                            @RequestParam("api") String apikey,
                                            @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
+
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
                     byte[] photoData = photoService.getPhoto(id);
                     HttpHeaders headers = new HttpHeaders();
@@ -133,11 +79,11 @@ public class PhotoController {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
                 }
             } else {
-                // API key hatalı
+
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
             }
         } else {
-            // Kullanıcı bulunamadı
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -147,12 +93,12 @@ public class PhotoController {
     public ResponseEntity<String> deletePhoto(@PathVariable String id,
                                               @RequestParam("api") String apikey,
                                               @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
+
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
                     photoService.deletePhoto(id);
                     return ResponseEntity.ok("Photo deleted successfully.");
@@ -160,26 +106,25 @@ public class PhotoController {
                     return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Photo not found.");
                 }
             } else {
-                // API key hatalı
+
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Invalid API Key.");
             }
         } else {
-            // Kullanıcı bulunamadı
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
     }
 
 
-    // Tüm fotoğrafların ID'lerini al
     @GetMapping("/all")
     public ResponseEntity<List<String>> getAllPhotos(@RequestParam("api") String apikey,
                                                      @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
+
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
                     List<String> photoUrls = photoService.getAllPhotos();
                     return ResponseEntity.ok(photoUrls);
@@ -187,11 +132,11 @@ public class PhotoController {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
                 }
             } else {
-                // API key hatalı
+
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
             }
         } else {
-            // Kullanıcı bulunamadı
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -203,12 +148,12 @@ public class PhotoController {
                                                      @RequestParam("uname") String uname,
                                                     @RequestParam("file") MultipartFile file,
                                                     @RequestParam("ownerId") String ownerId) {
-        // Kullanıcı adı ve API key doğrulaması
+
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
                     String photoId = photoService.uploadPhoto(file, ownerId);
                     return ResponseEntity.ok(Collections.singletonList("Photo uploaded successfully. ID: " + photoId + " User ID: " + ownerId));
@@ -216,11 +161,11 @@ public class PhotoController {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
                 }
             } else {
-                // API key hatalı
+
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
             }
         } else {
-            // Kullanıcı bulunamadı
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -231,14 +176,14 @@ public class PhotoController {
                                                   @RequestParam int score,
                                                   @RequestParam("api") String apikey,
                                                   @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
+
         Optional<User> existingUser = userRepo.findByUsername(uname);
         System.out.println("1");
         if (existingUser.isPresent()) {
             System.out.println("2");
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
                     System.out.println("3");
                     photoService.ratePhoto(photoId, userId, score);
@@ -249,11 +194,9 @@ public class PhotoController {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
                 }
             } else {
-                // API key hatalı
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(null);
             }
         } else {
-            // Kullanıcı bulunamadı
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
@@ -262,12 +205,12 @@ public class PhotoController {
     public ResponseEntity<Object> getPhotoAverageScore(@PathVariable String photoId,
                                                        @RequestParam("api") String apikey,
                                                        @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
+
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
                     Double averageScore = photoService.getPhotoAverageScore(photoId);
                     Map<String, Object> response = Map.of("photoId", photoId, "averageScore", averageScore);

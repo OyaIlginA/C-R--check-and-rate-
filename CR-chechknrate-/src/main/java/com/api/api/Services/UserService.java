@@ -22,15 +22,13 @@ public class UserService {
     }
 
 
-    // Yeni kullanıcı kaydet
     public User registerUser(String username, String password) {
-        // Kullanıcı zaten var mı kontrol et
+
         Optional<User> existingUser = userRepo.findByUsername(username);
         if (existingUser.isPresent()) {
             throw new IllegalArgumentException("Username already exists!");
         }
 
-        // Yeni kullanıcı oluştur ve kaydet
         User newUser = new User();
         newUser.setUsername(username);
         newUser.setPassword(password); // Şifre düz metin olarak kaydediliyor
@@ -42,26 +40,12 @@ public class UserService {
         return userRepo.save(newUser);
     }
 
-  /*  public User addPhotoToUser(String username, String photoId) {
-        System.out.println("7");
 
-        Optional<User> existingUser = userRepo.findByUsername(username);
-        if (existingUser.isPresent()) {
-            User user = existingUser.get();
-            user.getPhotos().add(photoId);
-            System.out.println("8");
-            return userRepo.save(user); // Kullanıcıyı güncelle
-        } else {
-            throw new IllegalArgumentException("User not found!");
-        }
-    }*/
-
-    // Giriş yap
     public User loginUser(String username, String password) {
         Optional<User> user = userRepo.findByUsername(username);
         if (user.isPresent()) {
             if (user.get().getPassword().equals(password)) {
-                return user.get(); // Giriş başarılı
+                return user.get();
             } else {
                 throw new IllegalArgumentException("Invalid password!");
             }
@@ -69,8 +53,7 @@ public class UserService {
             throw new IllegalArgumentException("User not found!");
         }
     }
-
-    // Kullanıcıyı kullanıcı adına göre getir
+    
     public User getUserByUsername(String username) {
         return userRepo.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found!"));

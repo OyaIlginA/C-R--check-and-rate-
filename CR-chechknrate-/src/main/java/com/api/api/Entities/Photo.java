@@ -12,13 +12,13 @@ import java.util.List;
 
 @Setter
 @Getter
-@Document(collection = "photos") // MongoDB koleksiyon adı
+@Document(collection = "photos")
 public class Photo {
-    // Getters ve setters
+
     @Id
     private String id;
     private String name; // Fotoğraf adı
-    private String type; // Fotoğraf türü (ör. image/jpeg)
+    private String type; // Fotoğraf türü
     private byte[] data; // Fotoğrafın binary verisi
     private String userId;
 
@@ -27,10 +27,8 @@ public class Photo {
     private User owner;
 
 
-    // Fotoğrafın aldığı puanlar
     private List<Rating> ratings;
 
-    // Dinamik veya statik olarak saklanabilir
     private Double averageScore;
 
     public double calculateAverageScore() {

@@ -19,7 +19,7 @@ public class GridFsConfig {
 
     @Bean
     public GridFSBucket gridFSBucket() {
-        return GridFSBuckets.create(mongoClient.getDatabase("mongodb")); // Replace with your database name
+        return GridFSBuckets.create(mongoClient.getDatabase("mongodb"));
     }
 
 

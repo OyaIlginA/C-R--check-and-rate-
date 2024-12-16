@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    // Tüm kullanıcıları al
+
     @GetMapping
     public ResponseEntity<?> getAllUsers(@RequestParam("api") String apikey, @RequestParam("uname") String uname) {
         Optional<User> existingUser = userRepo.findByUsername(uname);
@@ -51,7 +51,7 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    // Kullanıcı bilgilerini al
+
     @GetMapping("/{userId}")
     public ResponseEntity<?> getOneUser(
             @PathVariable String userId,
@@ -79,37 +79,7 @@ public class UserController {
         }
     }
 
-    /*
-    // Kullanıcı bilgilerini güncelle
-    @PutMapping("/update")
-    public ResponseEntity<String> updateOneUser(
-            @RequestParam("api") String apikey,
-            @RequestParam("uname") String uname,
-            @RequestBody User user) {
 
-        // Veritabanındaki kullanıcıyı kontrol etmek için userRepo'yu kullanıyoruz
-        Optional<User> existingUser = userRepo.findByUsername(uname);
-
-        if (existingUser.isPresent()) {
-            User dbUser = existingUser.get();
-
-            // API Key doğrulaması
-            if (apikey.equals(dbUser.getApikey())) {
-                // Kullanıcı bilgilerini güncelle
-                dbUser.setUsername(user.getUsername());
-                dbUser.setPassword(user.getPassword()); // Şifreyi hashle
-                userRepo.save(dbUser); // Güncellenmiş kullanıcıyı kaydet
-
-                return ResponseEntity.ok("User information updated successfully.");
-            } else {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid API Key.");
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-        }
-    }
-
-     */
     @PostMapping("/update")
     public ResponseEntity<String> updateUser(
             @RequestParam("api") String apikey,
@@ -136,26 +106,6 @@ public class UserController {
         }
     }
 
-    // @DeleteMapping("/{userId}")
-    //    public ResponseEntity<String> deleteOneUser(@PathVariable String userId, @RequestParam("api") String apikey) {
-    //        Optional<User> existingUser = userRepo.findById(userId);
-    //
-    //        if (existingUser.isPresent()) {
-    //            User dbUser = existingUser.get();
-    //
-    //            // API Key doğrulaması
-    //            if (apikey.equals(dbUser.getApikey())) {
-    //                userRepo.deleteById(userId);
-    //                return ResponseEntity.ok("User deleted successfully.");
-    //            } else {
-    //                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid API Key.");
-    //            }
-    //        } else {
-    //            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
-    //        }
-    //    }
-
-
     @DeleteMapping("/{userId}")
     public ResponseEntity<String> deleteOneUser(@PathVariable String userId,@RequestParam("api") String apikey, @RequestParam("uname") String uname) {
         Optional<User> existingUser = userRepo.findByUsername(uname);
@@ -163,7 +113,6 @@ public class UserController {
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
 
-            // API Key doğrulaması
             if (apikey.equals(dbUser.getApikey())) {
                 userRepo.deleteById(userId);
                 return ResponseEntity.ok("User deleted successfully.");
@@ -179,17 +128,15 @@ public class UserController {
     public ResponseEntity<Object> getPhotoAverageScore(@PathVariable String userId,
                                                        @RequestParam("api") String apikey,
                                                        @RequestParam("uname") String uname) {
-        // Kullanıcı adı ve API key doğrulaması
         Optional<User> existingUser = userRepo.findByUsername(uname);
         if (existingUser.isPresent()) {
             User dbUser = existingUser.get();
             if (apikey.equals(dbUser.getApikey())) {
-                // API key doğrulaması başarılı
+
                 try {
-                    // Service üzerinden kullanıcı puanını al
+
                     double averageScore = userService.calculateUserAverageScore(userId);
 
-                    // Yanıtı döndür
                     return ResponseEntity.ok(Map.of(
                             "userId", userId,
                             "averageScore", averageScore
@@ -203,11 +150,11 @@ public class UserController {
                     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Internal server error"));
                 }
             } else {
-                // API key hatalı
+
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(Map.of("error", "Invalid API key"));
             }
         } else {
-            // Kullanıcı bulunamadı
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
         }
     }
