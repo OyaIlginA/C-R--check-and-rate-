@@ -19,18 +19,8 @@ nav a:hover {
   color: #f78da7; /* Soft pembe */
 }
 
-/* Sayfa başlıkları */
-h1 {
-  color: #6c5ce7; /* Mor tonları */
-  font-size: 3rem;
-  font-weight: 600;
-  margin-top: 100px; /* Navbar'a kaymaması için */
-}
 
-/* Bileşenler arasındaki alan */
-div {
-  margin-top: 20px;
-}
+
 
 /* Kayıt ve giriş formu stilini şık yapalım */
 input, button {
@@ -106,18 +96,3 @@ p{
   color: #ff3f8f;
 }
 
-/* Responsive tasarım için */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  .profile-container, .feed-container {
-    width: 100%;
-    padding: 15px;
-  }
-}

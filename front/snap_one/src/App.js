@@ -6,7 +6,6 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Profile from "./components/Profile";
-import Feed from "./components/Feed";
 import TopPhotos from "./components/TopList";
 
 const App = () => {
@@ -19,7 +18,6 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/feed" element={<Feed />} />
           <Route path="/list" element={<TopPhotos />} />
         </Routes>
       </div>

@@ -7,7 +7,7 @@ function Home() {
   const [userInfo, setUserInfo] = useState(null);
   const [photos, setPhotos] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [rating, setRating] = useState(0); // Varsayılan 0 olarak başlatıldı
+  const [rating, setRating] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -50,7 +50,7 @@ function Home() {
   };
 
   const handleStarClick = (index) => {
-    setRating(index + 1); // Yıldızlara tıklayınca rating'i günceller
+    setRating(index + 1);
   };
 
   const handleSubmitRating = async () => {

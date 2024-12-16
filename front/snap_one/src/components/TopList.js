@@ -117,21 +117,21 @@ const TopPhotos = () => {
     <div className="content">
       {/* Top Photos Section */}
       <div className="top-photos-container">
-        <h1>Top 10 Fotoğraf</h1>
+        <h1 className="header">En Beğenilen 10 Fotoğraf</h1>
         <div className="photo-grid">
           {TopPhotos.map((photo, index) => (
             <div key={photo.photoId} className="photo-item">
-              <span className="photo-rank">Rank {index + 1}</span>
+              <span className="photo-rank"> {index + 1}</span>
               <img
                 src={`/api/photos/${photo.photoId}?api=${API_KEY}&uname=${USERNAME}`}
                 alt={`User Photo Rank ${index + 1}`}
                 className="photo-img"
               />
-              <span className="photo-score">
-                  Ortalama Puan:{" "}
+              <span className="photo-rank">
+                Toplam Puan:{" "}
                 {photo.averageScore !== undefined && photo.averageScore !== null
-                ? photo.averageScore.toFixed(2)
-                : "N/A"}
+                  ? photo.averageScore.toFixed(2)
+                  : "N/A"}
               </span>
             </div>
           ))}
@@ -140,15 +140,15 @@ const TopPhotos = () => {
 
       {/* Top Users Section */}
       <div className="top-users-container">
-        <h1>Top 10 Kullanıcı</h1>
+        <h1 className="header">En İyi 10 Kullanıcı</h1>
         <ul className="top-users-list">
           {topUsers.map((user, index) => (
             <li key={user.userId}>
               <span className="username">
-                Rank {index + 1}: {user.username}
+                {index + 1}: {user.username}
               </span>
               <span className="user-score">
-                      Puan:{" "}
+                Puan:{" "}
                 {user.averageScore !== undefined && user.averageScore !== null
                   ? user.averageScore.toFixed(2)
                   : "N/A"}

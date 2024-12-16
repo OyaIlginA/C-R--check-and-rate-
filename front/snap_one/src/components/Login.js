@@ -63,28 +63,28 @@ function Login() {
         <div className="typing-text">{typingText}</div>
       </div>
       <div className="login-form-container">
-        <h2>Login</h2>
+        <h2>Giriş Yap</h2>
         <form onSubmit={handleSubmit}>
           <div>
-            <label>Username</label>
             <input
               type="text"
+              placeholder="Kullanıcı Adı"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
           <div>
-            <label>Password</label>
             <input
               type="password"
+              placeholder="Şifre"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
           {errorMessage && <div>{errorMessage}</div>}
-          <button type="submit">Login</button>
+          <button type="submit">Giriş Yap</button>
         </form>
       </div>
     </div>

@@ -1,70 +1,68 @@
-/* Pinterest Feed Layout */
+
 .pinterest-feed {
-    column-count: 5; /* Number of columns */
-    column-gap: 16px;
-    padding: 16px;
-    margin: 0 auto;
-  }
-  
-  .pinterest-item {
+  column-count: 6; 
+  column-gap: 12px; 
+  padding: 12px;
+}
+
+.pinterest-item {
     break-inside: avoid;
     margin-bottom: 16px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
+}
   
-  .pinterest-item img {
+.pinterest-item img {
     width: 100%;
     display: block;
     border-radius: 8px;
     
-  }
+}
 
-  .pinterest-item img:hover {
-    border: 7px solid pink; /* Hover durumunda pembe border */
-    transform: scale(1.1); /* Hover durumunda fotoğrafı büyüt */
-  }
+.pinterest-item img:hover {
+    border: 7px solid pink; 
+    transform: scale(1.1);
+}
   
-  /* Modal Backdrop - Background and Blur */
-  .modal-backdrop {
-    backdrop-filter: blur(8px); /* Arka plan bulanıklığı */
+
+.modal-backdrop {
+    backdrop-filter: blur(8px);
     min-height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5); /* Hafif siyah bir gölge */
+    background-color: rgba(0, 0, 0, 0.5); 
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 999; /* Modal arka planının ön planda olması */
-  }
+    z-index: 999; 
+}
 
   
-  /* Modal Dialog - Flex for Centering */
-  .modal-dialog {
-    display: flex;
-    justify-content: center; /* Yatay ortalama */
-    align-items: center; /* Dikey ortalama */
+.modal-dialog {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1000; /* Modal’ın ön planda olması için */
-    margin: auto; /* Margin sıfırlanır */
-  }
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
   
-  .modal-content {
-    background-color: rgb(250, 170, 217);
+.modal-content {
+    background-color: rgba(255, 182, 225, 0.74);
     padding: 20px;
     border-radius: 10px;
     max-width: 600px;
     max-height: 80%;
     overflow-y: auto;
     position: relative;
-  }
+}
   
-  /* Modal Image and Rating Container */
+
   .modal-image-container {
     text-align: center;
     margin-bottom: 20px;
@@ -80,7 +78,7 @@
     text-align: center;
   }
   
-  /* Close Button */
+
   .close-button {
     position: absolute;
     top: 10px;
@@ -90,11 +88,11 @@
   }
   
   .modal-backdrop {
-    background-color: rgba(255, 182, 193, 0); /* Soft açık pembe */
+    background-color: rgba(255, 182, 193, 0); 
   }
   
   .modal-content {
-    background-color: #f9f3f6; /* Soft pembe */
+    background-color: #fa7aba9f; 
     border-radius: 15px;
     padding: 20px;
     max-width: 500px;
@@ -112,7 +110,7 @@
     right: 10px;
     width: 35px;
     height: 35px;
-    background-color: #d63d6f; /* Koyu pembe */
+    background-color: #d63d6f; 
     border: none;
     border-radius: 50%;
     color: white;
@@ -142,13 +140,13 @@
   
   .star {
     font-size: 30px;
-    color: #d3d3d3; /* Boş yıldız için gri */
+    color: #d3d3d3; 
     cursor: pointer;
     transition: color 0.3s ease;
   }
   
   .star.selected {
-    color: #d63d6f; /* Seçili yıldız için koyu pembe */
+    color: #d63d6f; 
   }
   
   .modal-footer {
@@ -177,8 +175,8 @@
     margin-left: 60px;
   }
   .content {
-    margin-left: 70px; /* Navbar genişliği kadar boşluk bırak */
-    padding: 20px; /* İçerik kenar boşluğu */
-    min-height: 100vh; /* İçerik tam ekran yüksekliğinde */
- /* Hafif bir arka plan rengi */
+    margin-left: 70px; 
+    padding: 20px; 
+    min-height: 100vh; 
+
   }
